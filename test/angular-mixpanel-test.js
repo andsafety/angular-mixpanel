@@ -44,6 +44,14 @@ describe('Provider: $mixpanelProvider', function () {
         expect($mixpanel.superProperties()).toBe(properties);
     });
 
+    it('should set init properties', function () {
+        var properties = { prop1: true };
+
+        $mixpanel.initProperties(properties);
+
+        expect($mixpanel.initProperties()).toBe(properties);
+    });
+
     it('should load', function () {
         var mp = $mixpanel.$get();
 

@@ -49,6 +49,20 @@ You can also supply [super properties](https://mixpanel.com/help/reference/javas
         }]);
 ```
 
+And tou can supply [init properties](https://mixpanel.com/help/reference/javascript-full-api-reference#mixpanel.init):
+
+```javascript
+ angular.module('analytics.mixpanel')
+        .config(['$mixpanelProvider', function($mixpanelProvider) {
+            $mixpanelProvider.apiKey('<your project token>'); // your token is different than your API key
+
+            $mixpanelProvider.initProperties({
+                someProp: 'foo',
+                anotherOne: 'bar'
+            });
+        }]);
+```
+
 Then you can inject `$mixpanel` wherever needed. The API is identical to the standard mixpanel JavaScript global. For example:
 
 ```javascript

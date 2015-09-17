@@ -20,7 +20,7 @@
  */
 angular.module('analytics.mixpanel', [])
     .provider('$mixpanel', function () {
-        var apiKey, superProperties;
+        var apiKey, initProperties, superProperties;
 
         /**
          * Init the mixpanel global
@@ -29,8 +29,8 @@ angular.module('analytics.mixpanel', [])
             if (!Object.prototype.hasOwnProperty.call(window, 'mixpanel')) {
                 throw 'Global `mixpanel` not available. Did you forget to include the library on the page?';
             }
-            
-            mixpanel.init(apiKey);            
+
+            mixpanel.init(apiKey, initProperties);
 
             waitTillAsyncApiLoaded(function () {
                 if (superProperties) mixpanel.register(superProperties);
@@ -96,6 +96,19 @@ angular.module('analytics.mixpanel', [])
             if (!properties) return superProperties;
 
             superProperties = properties;
+        };
+
+        /**
+         * Get or set a special set of properties to include on init.
+         *
+         * @param properties a map properties
+         *
+         * @see https://mixpanel.com/help/reference/javascript-full-api-reference#mixpanel.init
+         */
+        this.initProperties = function (properties) {
+            if (!properties) return initProperties;
+
+            initProperties = properties;
         };
 
         this.$get = function () {
